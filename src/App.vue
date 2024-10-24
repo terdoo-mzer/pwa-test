@@ -75,6 +75,10 @@ window.addEventListener('appinstalled', () => {
     </button>
     <output v-html="outputText"></output>
 
+    <div>
+      This is being added to test updates to PWA!
+    </div>
+
     </div>
   </header>
 
