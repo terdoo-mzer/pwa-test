@@ -15,9 +15,8 @@ export default defineConfig({
           enabled: true
         },
         manifest: {
-          name: 'PWA Sample',
-          short_name: 'PWAS',
-          description: 'Testing PWA',
+          name: 'Chancification',
+          short_name: 'Chancification',
           theme_color: '#ffffff',
           icons: [
             {
@@ -31,6 +30,24 @@ export default defineConfig({
               type: 'image/png'
             }
           ],
+          "screenshots": [
+            {
+             "src": "/source/chancifiction-512x512.png",
+              "sizes": "512x512",
+              "type": "image/png",
+              "form_factor": "wide",
+              "label": "Chancification"
+            },
+            {
+              "src": "/source/vue-512x512.png",
+               "sizes": "512x512",
+               "type": "image/png",
+               "form_factor": "wide",
+               "label": "Vue"
+             }
+          ],
+          "description": "Welcome to Africa's first no cash bank. Banking reimagined, where every transfer could be on the house!",
+          "categories": ["Finance"],
           "id": "/", // Auto-generated unique ID
           "start_url": "/",
           "scope": "/"

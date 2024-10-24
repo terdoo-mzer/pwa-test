@@ -1,6 +1,57 @@
 <script setup>
+import {onMounted, ref} from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const deferredPrompt = ref(null);
+const installButtonVisible = ref(false);
+const outputText = ref('');
+
+const showResult = (text, append = false) => {
+  if (append) {
+    outputText.value += "\n" + text;
+  } else {
+    outputText.value = text;
+  }
+};
+
+const installApp = async () => {
+  if (deferredPrompt.value) {
+    deferredPrompt.value.prompt();
+    showResult("🆗 Installation Dialog opened");
+    
+    const { outcome } = await deferredPrompt.value.userChoice;
+    deferredPrompt.value = null;
+    
+    if (outcome === 'accepted') {
+      showResult('😀 User accepted the install prompt.', true);
+    } else if (outcome === 'dismissed') {
+      showResult('😟 User dismissed the install prompt');
+    }
+    
+    installButtonVisible.value = false;
+  }
+};
+
+
+onMounted(() => {
+  if ('BeforeInstallPromptEvent' in window) {
+    showResult("⏳ BeforeInstallPromptEvent supported but not fired yet");
+  } else {
+    showResult("❌ BeforeInstallPromptEvent NOT supported");    
+  }
+});
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt.value = e;
+  installButtonVisible.value = true;
+  showResult("✅ BeforeInstallPromptEvent fired", true);
+});
+
+window.addEventListener('appinstalled', () => {
+  showResult("✅ AppInstalled fired", true);
+});
 </script>
 
 <template>
@@ -14,6 +65,16 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
+
+      <button 
+      @click="installApp" 
+      v-show="installButtonVisible"
+      id="install"
+    >
+      Install App
+    </button>
+    <output v-html="outputText"></output>
+
     </div>
   </header>
 
@@ -54,6 +115,29 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+button {
+  display: block;
+  font-size: 16px;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 8px;
+  text-transform: uppercase;
+}
+
+/* Hide Install button until beforeinstallprompt fires */
+
+
+output {
+  display: block;
+  color: gray;
+  margin: 32px 16px;
+  text-align: center;
+  border: 1px silver dashed;
+  padding: 16px;
+  border-radius: 16px;  
 }
 
 @media (min-width: 1024px) {
