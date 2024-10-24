@@ -39,10 +39,24 @@ export default defineConfig({
               "label": "Chancification"
             },
             {
+              "src": "/source/chancifiction-512x512.png",
+               "sizes": "512x512",
+               "type": "image/png",
+               "form_factor": "narrow",
+               "label": "Chancification"
+             },
+            {
               "src": "/source/vue-512x512.png",
                "sizes": "512x512",
                "type": "image/png",
                "form_factor": "wide",
+               "label": "Vue"
+             },
+             {
+              "src": "/source/vue-512x512.png",
+               "sizes": "512x512",
+               "type": "image/png",
+               "form_factor": "narrow",
                "label": "Vue"
              }
           ],
