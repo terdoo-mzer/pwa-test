@@ -7,6 +7,11 @@ const deferredPrompt = ref(null);
 const installButtonVisible = ref(false);
 const outputText = ref('');
 
+const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+if (isFirefox && !window.matchMedia('(display-mode: standalone)').matches) {
+    alert("For a better experience, add this app to your home screen.");
+}
+
 const showResult = (text, append = false) => {
   if (append) {
     outputText.value += "\n" + text;
