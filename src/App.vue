@@ -80,9 +80,9 @@ const checkOnboardingStatus = () => {
   const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
   if (!hasSeenOnboarding && isPWAStandalone() && isMobile()) {
     // alert(1234)
-    console.log("On the pwas")
+    console.log("Not On the pwas")
     //!hasSeenOnboarding && isPWAStandalone() && isMobile()
-    // showOnboarding.value = true;
+    showOnboarding.value = true;
   }
 };
 
