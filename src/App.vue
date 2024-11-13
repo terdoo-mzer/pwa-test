@@ -47,12 +47,16 @@
         Login
       </button>
     </div>
+
+   
   </div>
+  <RouterView v-else />
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { RouterView } from 'vue-router';
 
 // Define the content for each slide
 const slideContent = [
@@ -74,7 +78,10 @@ const isMobile = () => window.innerWidth <= 768;
 // Check if the onboarding screen should be shown
 const checkOnboardingStatus = () => {
   const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
-  if (!hasSeenOnboarding && isPWAStandalone() && isMobile()) {
+  if (!hasSeenOnboarding && isPWAStandalone && isMobile()) {
+    // alert(1234)
+    console.log("On the pwas")
+    //!hasSeenOnboarding && isPWAStandalone() isPWAStandalone && isMobile()
     showOnboarding.value = true;
   }
 };
@@ -116,7 +123,7 @@ const handleTouchEnd = (event) => {
     if (currentSlide.value < slideContent.length - 1) {
       currentSlide.value++;
     } else {
-      markOnboardingCompleted(); // Move to home screen if at the end
+      return false
     }
   } else if (touchEndX - touchStartX > 50) {
     // Swipe right (previous slide)
@@ -128,6 +135,8 @@ const handleTouchEnd = (event) => {
 
 // Run checks on component mount
 onMounted(() => {
+  window.addEventListener('touchstart', handleTouchStart, { passive: true });   
+  window.addEventListener('touchend', handleTouchEnd, { passive: true });
   checkOnboardingStatus();
 });
 
