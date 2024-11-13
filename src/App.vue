@@ -78,11 +78,11 @@ const isMobile = () => window.innerWidth <= 768;
 // Check if the onboarding screen should be shown
 const checkOnboardingStatus = () => {
   const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
-  if (!hasSeenOnboarding && isPWAStandalone && isMobile()) {
+  if (!hasSeenOnboarding && isPWAStandalone() && isMobile()) {
     // alert(1234)
     console.log("On the pwas")
-    //!hasSeenOnboarding && isPWAStandalone() isPWAStandalone && isMobile()
-    showOnboarding.value = true;
+    //!hasSeenOnboarding && isPWAStandalone() && isMobile()
+    // showOnboarding.value = true;
   }
 };
 
@@ -91,7 +91,7 @@ const markOnboardingCompleted = () => {
   localStorage.setItem('hasSeenOnboarding', 'true');
   showOnboarding.value = false;
   console.log("Navigating to Login Screen...");
-  router.push('/home')
+  router.push('/')
 };
 
 // Handle the Next / Learn More button click
